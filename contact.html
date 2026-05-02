@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let's Talk — Adarsh Mandavkar</title>
+  <link rel="icon" type="image/png" href="./assets/AM.png" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #f0f0ee;
+      --text-muted: rgba(240, 240, 238, 0.55);
+      --accent: #ffffff;
+      --border: rgba(255, 255, 255, 0.08);
+      --font-dm: "DM Sans", sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-dm); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow-x: hidden; }
+    
+    .container { width: 100%; max-width: 600px; padding: 40px; position: relative; z-index: 1; }
+    h1 { font-size: 48px; font-weight: 500; margin-bottom: 16px; letter-spacing: -0.02em; }
+    p { color: var(--text-muted); margin-bottom: 40px; line-height: 1.6; font-size: 16px; }
+    
+    .form-group { margin-bottom: 24px; display: flex; flex-direction: column; gap: 8px; }
+    label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    input, textarea { width: 100%; padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 16px; outline: none; transition: border-color 0.3s, background 0.3s; font-family: var(--font-dm); }
+    input:focus, textarea:focus { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+    textarea { resize: vertical; min-height: 120px; }
+    
+    .btn-group { display: flex; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; border-radius: 100px; font-size: 14px; font-weight: 500; border: 1px solid var(--border); background: transparent; color: var(--text); text-decoration: none; transition: all 0.3s ease; will-change: transform; }
+    .btn:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .btn-primary:hover { background: transparent; color: var(--text); border-color: var(--border); }
+    
+    /* Custom Cursor */
+    .custom-cursor { position: fixed; top: 0; left: 0; width: 12px; height: 12px; background-color: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; mix-blend-mode: difference; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease; will-change: transform, width, height; }
+    .custom-cursor.hovered { width: 36px; height: 36px; background: rgba(255,255,255,0.8); }
+
+    /* Noise Bg */
+    .noise-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E'); pointer-events: none; z-index: 0; }
+  </style>
+</head>
+<body>
+  <div class="noise-bg"></div>
+  <div class="custom-cursor" id="cursor"></div>
+  
+  <div class="container animate-up">
+    <h1>Let's Talk</h1>
+    <p>Have a project in mind or just want to say hi? Fill out the form below and I'll get back to you as soon as possible.</p>
+    
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="6e1e7cff-5099-4baf-8024-6780cd48e783">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" class="interactive-el" required placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" class="interactive-el" required placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea name="message" class="interactive-el" required placeholder="Tell me about your project..."></textarea>
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary interactive-el magnetic" id="submit-btn">Send Message</button>
+        <a href="index.html" class="btn interactive-el magnetic">Go Back</a>
+      </div>
+    </form>
+    <div id="success-message" style="display: none; margin-top: 24px; padding: 16px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text);">
+      Thank you! Your message has been sent successfully. I'll be in touch soon.
+    </div>
+  </div>
+
+  <script>
+    const cursor = document.getElementById("cursor");
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let cursorX = mouseX, cursorY = mouseY;
+
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function renderCursor() {
+      cursorX += (mouseX - cursorX) * 0.15;
+      cursorY += (mouseY - cursorY) * 0.15;
+      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+      requestAnimationFrame(renderCursor);
+    }
+    renderCursor();
+
+    document.querySelectorAll(".interactive-el").forEach((el) => {
+      el.addEventListener("mouseenter", () => cursor.classList.add("hovered"));
+      el.addEventListener("mouseleave", () => cursor.classList.remove("hovered"));
+    });
+
+    document.querySelectorAll(".magnetic").forEach((btn) => {
+      btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+      });
+      btn.addEventListener("mouseleave", () => {
+        btn.style.transform = `translate(0px, 0px)`;
+      });
+    });
+
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.innerText = 'Sending...';
+      btn.style.pointerEvents = 'none';
+      
+      const formData = new FormData(this);
+      
+      fetch(this.action, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.success) {
+          this.style.display = 'none';
+          document.getElementById('success-message').style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try again.');
+          btn.innerText = 'Send Message';
+          btn.style.pointerEvents = 'auto';
+        }
+      })
+      .catch(error => {
+        alert('Something went wrong. Please try again.');
+        btn.innerText = 'Send Message';
+        btn.style.pointerEvents = 'auto';
+      });
+    });
+  </script>
+</body>
+</html>

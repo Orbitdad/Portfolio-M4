@@ -1,0 +1,1507 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adarsh Mandavkar - Freelance Web Developer</title>
+    <link rel="icon" type="image/png" href="./assets/LOGO-AM.png" />
+    <meta
+      name="description"
+      content="[Crafting digital experiences for startups]"
+    />
+    <meta property="og:image" content="https://picsum.photos/1200/630" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       CSS VARIABLES & RESET
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      :root {
+        --bg: #0a0a0a;
+        --text: #f0f0ee;
+        --text-muted: rgba(240, 240, 238, 0.55);
+        --accent: #ffffff;
+        --border: rgba(255, 255, 255, 0.08);
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --font-dm: "DM Sans", sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        cursor: none; /* Custom cursor used globally */
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: var(--font-dm);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.7;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a {
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      img,
+      video {
+        max-width: 100%;
+        display: block;
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       TYPOGRAPHY
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      h1,
+      .hero-headline {
+        font-size: 72px;
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+
+      h2,
+      .section-heading {
+        font-size: 42px;
+        font-weight: 500;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+      }
+
+      .label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+      }
+
+      .service-line {
+        font-size: 28px;
+        font-weight: 400;
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       GLOBAL ELEMENTS
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 5%;
+      }
+
+      section {
+        padding: 120px 0;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 28px;
+        border-radius: 100px;
+        font-size: 14px;
+        font-weight: 500;
+        border: 1px solid var(--border);
+        background-color: transparent;
+        color: var(--text);
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease,
+          border-color 0.3s ease;
+        will-change: transform;
+      }
+
+      .btn:hover {
+        background-color: var(--text);
+        color: var(--bg);
+      }
+
+      .magnetic-wrap {
+        display: inline-block;
+      }
+
+      /* CUSTOM CURSOR */
+      .custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        background-color: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s ease,
+          height 0.2s ease,
+          background-color 0.2s ease;
+        will-change: transform, width, height;
+      }
+
+      .custom-cursor.hovered {
+        width: 36px;
+        height: 36px;
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       ANIMATION UTILS
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .animate-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .animate-up.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       1. STICKY NAV
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .sticky-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        padding: 24px 0;
+        transition:
+          background-color 0.4s ease,
+          backdrop-filter 0.4s ease;
+      }
+
+      .sticky-nav.scrolled {
+        background-color: rgba(10, 10, 10, 0.9);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 20px;
+        font-weight: 500;
+        z-index: 101;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+
+      .nav-links a.nav-link {
+        font-size: 14px;
+        color: var(--text-muted);
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a.nav-link:hover {
+        color: var(--text);
+      }
+
+      .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 101;
+        text-transform: uppercase;
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg);
+        z-index: 99;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5%;
+        transform: translateX(100%);
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .mobile-menu.active {
+        transform: translateX(0);
+      }
+
+      .mobile-nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .mobile-nav-item {
+        overflow: hidden;
+      }
+
+      .mobile-nav-link {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        font-size: 42px;
+        font-weight: 500;
+        transform: translateY(100%);
+        opacity: 0;
+        transition:
+          transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .mobile-menu.active .mobile-nav-link {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .mobile-nav-link span {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .mobile-socials {
+        margin-top: 64px;
+        display: flex;
+        gap: 24px;
+        opacity: 0;
+        transition: opacity 0.6s ease 0.4s;
+      }
+
+      .mobile-menu.active .mobile-socials {
+        opacity: 1;
+      }
+
+      .mobile-socials a {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       2. HERO
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 140px;
+        position: relative;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.8fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .scramble-wrapper {
+        font-family: monospace;
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        height: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .bio {
+        color: var(--text-muted);
+        max-width: 480px;
+        font-size: 18px;
+      }
+
+      .services-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .service-line {
+        color: var(--text-muted);
+        transition: color 0.3s ease;
+      }
+
+      .service-line:hover {
+        color: var(--text);
+      }
+
+      .hero-photo-wrap {
+        position: relative;
+        width: 100%;
+        height: 600px;
+        overflow: hidden;
+        border-radius: 12px;
+      }
+
+      .hero-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* clip-path wipe initial state */
+        clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+        transition: clip-path 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .hero-photo.in-view {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--text);
+        animation: pulse 1.4s ease infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       3. CLIENT LOGOS
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .clients {
+        padding: 60px 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .clients .container {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .marquee {
+        display: flex;
+        width: 200%;
+        animation: marquee 20s linear infinite;
+      }
+
+      .marquee:hover {
+        animation-play-state: paused;
+      }
+
+      .marquee-content {
+        display: flex;
+        justify-content: space-around;
+        width: 50%;
+        gap: 60px;
+      }
+
+      .client-logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-muted);
+        white-space: nowrap;
+        transition: color 0.3s;
+      }
+      .client-logo:hover {
+        color: var(--text);
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       4. WORK SECTION
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .work-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 64px;
+      }
+
+      .globe-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 1px dashed var(--text-muted);
+        animation: rotate 10s linear infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        font-size: 10px;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .work-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .work-card {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        aspect-ratio: 4/5;
+        background-color: var(--card-bg);
+        display: block;
+      }
+
+      .work-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform;
+      }
+
+      .work-card:hover .work-img {
+        transform: scale(1.04);
+      }
+
+      .work-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 32px;
+        background: linear-gradient(
+          to top,
+          rgba(10, 10, 10, 0.9) 0%,
+          transparent 100%
+        );
+        transform: translateY(100%);
+        transition: transform 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .work-card:hover .work-overlay {
+        transform: translateY(0);
+      }
+
+      .work-title {
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .work-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .tag-pill {
+        padding: 6px 12px;
+        border-radius: 100px;
+        background-color: rgba(255, 255, 255, 0.1);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       5. MID-PAGE CTA BANNER
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .mid-cta {
+        position: relative;
+        text-align: center;
+        padding: 160px 0;
+        background-color: #111;
+        overflow: hidden;
+      }
+
+      /* Subtle noise grain */
+      .noise-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .mid-cta .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+      }
+
+      .mid-cta h2 {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       6. ARCHIVES TEASER
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .archives {
+        border-top: 1px solid var(--border);
+      }
+
+      .archives-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .archives-text {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        align-items: flex-start;
+      }
+
+      .archives-link {
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: gap 0.3s ease;
+      }
+
+      .archives-link:hover {
+        gap: 16px;
+      }
+
+      .archives-video {
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: var(--card-bg);
+        aspect-ratio: 16/9;
+      }
+
+      .archives-video video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+      }
+
+      .archives-video:hover video {
+        opacity: 1;
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       7. TESTIMONIALS
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      .testimonials-header {
+        margin-bottom: 64px;
+      }
+
+      .testi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .testi-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 32px;
+      }
+
+      .testi-quote {
+        font-size: 18px;
+        line-height: 1.6;
+        font-style: italic;
+      }
+
+      .testi-author {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .author-img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .author-info p {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       8. FOOTER
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      footer {
+        padding: 120px 0 40px;
+        background-color: var(--bg);
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 40px;
+        margin-bottom: 120px;
+      }
+
+      .footer-top h2 {
+        max-width: 900px;
+        font-size: 64px;
+      }
+
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 24px;
+        padding-top: 40px;
+        border-top: 1px solid var(--border);
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 24px;
+      }
+
+      .footer-links a {
+        color: var(--text-muted);
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: var(--text);
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━
+       MEDIA QUERIES
+       ━━━━━━━━━━━━━━━━━━━━━━━━ */
+      @media (max-width: 1024px) {
+        h1,
+        .hero-headline {
+          font-size: 56px;
+        }
+        h2,
+        .section-heading,
+        .footer-top h2 {
+          font-size: 36px;
+        }
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 60px;
+        }
+        .hero-photo-wrap {
+          height: 400px;
+        }
+        .archives-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        h1,
+        .hero-headline {
+          font-size: 48px;
+        }
+        .work-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        section {
+          padding: 80px 0;
+        }
+        h1,
+        .hero-headline {
+          font-size: 40px;
+        }
+        h2,
+        .section-heading,
+        .footer-top h2 {
+          font-size: 28px;
+        }
+        .service-line {
+          font-size: 20px;
+        }
+        .testi-card {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- STICKY NAV -->
+    <nav class="sticky-nav" id="navbar">
+      <div class="container nav-container">
+        <a href="#" class="logo interactive-el">Adarsh Mandavkar</a>
+        <div class="nav-links">
+          <a href="#work" class="nav-link interactive-el">Work</a>
+          <a href="#about" class="nav-link interactive-el">About</a>
+          <a href="#contact" class="nav-link interactive-el">Contact</a>
+          <div class="magnetic-wrap">
+            <a href="contact.html" class="btn magnetic interactive-el"
+              >Let's Talk</a
+            >
+          </div>
+        </div>
+        <button class="hamburger magnetic interactive-el" id="menu-btn">
+          Menu
+        </button>
+      </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobile-menu">
+      <ul class="mobile-nav-list">
+        <li class="mobile-nav-item">
+          <a href="#work" class="mobile-nav-link interactive-el mobile-link">
+            <span>01</span> Work
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a href="#about" class="mobile-nav-link interactive-el mobile-link">
+            <span>02</span> About
+          </a>
+        </li>
+        <li class="mobile-nav-item">
+          <a href="#contact" class="mobile-nav-link interactive-el mobile-link">
+            <span>03</span> Contact
+          </a>
+        </li>
+      </ul>
+      <div class="mobile-socials">
+        <a href="[LinkedIn]" class="interactive-el">LinkedIn</a>
+        <a href="[Twitter]" class="interactive-el">Twitter</a>
+        <a href="[Dribbble]" class="interactive-el">Dribbble</a>
+      </div>
+    </div>
+
+    <main>
+      <!-- HERO SECTION -->
+      <section
+        class="hero"
+        id="about"
+        style="position: relative; overflow: hidden"
+      >
+        <!-- SCROLL PARALLAX BACKGROUND -->
+        <div
+          class="scroll-parallax"
+          data-speed="0.35"
+          style="
+            position: absolute;
+            top: -15%;
+            left: -10%;
+            width: 120%;
+            height: 130%;
+            background: radial-gradient(
+              circle at 60% 40%,
+              rgba(255, 255, 255, 0.04) 0%,
+              transparent 50%
+            );
+            z-index: 0;
+            pointer-events: none;
+            will-change: transform;
+            transform: translateZ(0);
+          "
+        ></div>
+
+        <!-- FLOATING TAGS -->
+        <div
+          class="scroll-parallax"
+          data-speed="0.15"
+          style="
+            position: absolute;
+            top: 25%;
+            right: 15%;
+            z-index: 1;
+            will-change: transform;
+            transform: translateZ(0);
+          "
+        >
+          <div
+            class="mouse-parallax tag-pill"
+            data-mouse-speed="-0.05"
+            style="
+              will-change: transform;
+              transform: translateZ(0);
+              border: 1px solid var(--border);
+            "
+          >
+            Creative
+          </div>
+        </div>
+        <div
+          class="scroll-parallax"
+          data-speed="0.25"
+          style="
+            position: absolute;
+            bottom: 20%;
+            left: 8%;
+            z-index: 1;
+            will-change: transform;
+            transform: translateZ(0);
+          "
+        >
+          <div
+            class="mouse-parallax tag-pill"
+            data-mouse-speed="0.08"
+            style="
+              will-change: transform;
+              transform: translateZ(0);
+              border: 1px solid var(--border);
+            "
+          >
+            Digital
+          </div>
+        </div>
+
+        <div class="container hero-grid" style="position: relative; z-index: 2">
+          <div class="hero-content">
+            <div class="scramble-wrapper" id="scramble-text">Hold tight</div>
+            <h1 class="hero-headline animate-up">
+              Adarsh Mandavkar<br />[ MERN Stack Developer & PYTHON Friendly]
+            </h1>
+            <p class="bio animate-up" style="transition-delay: 0.1s">
+              Full-stack developer focused on scalable, user-friendly web
+              applications <br />
+              Skilled in JavaScript, Node.js, and modern frontend technologies
+              <br />
+              Currently building MediCart to solve real-world business problems
+            </p>
+            <div class="services-list" id="services-stagger">
+              <div class="service-line stagger-item">/ Frontend Developer</div>
+              <div class="service-line stagger-item">
+                / MERN Stack Developer
+              </div>
+              <div class="service-line stagger-item">/ Content Writer</div>
+              <div class="service-line stagger-item">/ Thumbnail Designer</div>
+            </div>
+          </div>
+          <div
+            class="hero-photo-wrap"
+            id="hero-tilt"
+            style="
+              perspective: 800px;
+              transform-style: preserve-3d;
+              will-change: transform;
+            "
+          >
+            <img
+              src="./assets/HERO (1) copy.png"
+              alt="Profile Photo"
+              class="hero-photo"
+              id="hero-img"
+              loading="lazy"
+              style="
+                will-change: transform;
+                transform: translateZ(0);
+                transform-origin: center center;
+              "
+            />
+          </div>
+        </div>
+        <div class="scroll-indicator" style="z-index: 2"></div>
+      </section>
+
+      <!-- CLIENT LOGOS -->
+      <section class="clients">
+        <div class="container">
+          <div class="label">what I know</div>
+        </div>
+        <div class="marquee">
+          <!-- Content repeated twice for infinite loop -->
+          <div class="marquee-content">
+            <span class="client-logo">HTML/CSS</span>
+            <span class="client-logo">JavaScript</span>
+            <span class="client-logo">Python</span>
+            <span class="client-logo">React</span>
+            <span class="client-logo">Node.js</span>
+            <span class="client-logo">MongoDB</span>
+            <span class="client-logo">Git/GitHub</span>
+            <span class="client-logo">Figma</span>
+            <span class="client-logo">Canva</span>
+          </div>
+          <div class="marquee-content">
+            <span class="client-logo">HTML/CSS</span>
+            <span class="client-logo">JavaScript</span>
+            <span class="client-logo">Python</span>
+            <span class="client-logo">React</span>
+            <span class="client-logo">Node.js</span>
+            <span class="client-logo">MongoDB</span>
+            <span class="client-logo">Git/GitHub</span>
+            <span class="client-logo">Figma</span>
+            <span class="client-logo">Canva</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK SECTION -->
+      <section class="work" id="work">
+        <div class="container">
+          <div class="work-header animate-up">
+            <h2 class="section-heading">Recent Work</h2>
+            <div
+              class="scroll-parallax"
+              data-speed="0.1"
+              style="will-change: transform; transform: translateZ(0)"
+            >
+              <div class="globe-icon">GLBE</div>
+            </div>
+          </div>
+          <div class="work-grid">
+            <!-- Project 1 -->
+            <a href="https://orbitdad.github.io/MEDICART/#/doctor/login" class="work-card interactive-el animate-up">
+              <img
+                src="./assets/proj-medicart.png""
+                alt="Medicat - Shree Sai Surgical "
+                class="work-img"
+                loading="lazy"
+              />
+              <div class="work-overlay">
+                <h3 class="work-title">Medicart - Shree Sai Surgical</h3>
+                <div class="work-tags">
+                  <span class="tag-pill">[Industry]</span>
+                  <span class="tag-pill">[Service]</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 2 -->
+            <a
+              href="https://github.com/Orbitdad/C4"
+              class="work-card interactive-el animate-up"
+              style="transition-delay: 0.15s; margin-top: 60px"
+            >
+              <img
+                src="./assets/proj-C4.png"
+                alt="C4 - Personal Assistant "
+                class="work-img"
+                loading="lazy"
+              />
+              <div class="work-overlay">
+                <h3 class="work-title">C4 - Personal Assistant </h3>
+                <div class="work-tags">
+                  <span class="tag-pill">[Personal Assistant]</span>
+                  <span class="tag-pill">[AI]</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 3 -->
+            <a href="https://shakti-forwarders-main.vercel.app/index.html" class="work-card interactive-el animate-up">
+              <img
+                src="./assets/proj-shaktiforwarders.png"
+                alt="shakti-forwarders"
+                class="work-img"
+                loading="lazy"
+              />
+              <div class="work-overlay">
+                <h3 class="work-title">shakti-forwarders</h3>
+                <div class="work-tags">
+                  <span class="tag-pill">[Industry]</span>
+                  <span class="tag-pill">[Service]</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Project 4 -->
+            <a
+              href="https://work-in-progress-eight.vercel.app/"
+              class="work-card interactive-el animate-up"
+              style="transition-delay: 0.15s; margin-top: 60px"
+            >
+              <img
+                src="./assets/wip.png"
+                alt="Project 4"
+                class="work-img"
+                loading="lazy"
+              />
+              <div class="work-overlay">
+                <h3 class="work-title">Project in Progress</h3>
+                <div class="work-tags">
+                  <span class="tag-pill">secret</span>
+                  <span class="tag-pill">secret</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- MID-PAGE CTA BANNER -->
+      <section class="mid-cta animate-up">
+        <div
+          class="noise-bg scroll-parallax"
+          data-speed="0.2"
+          style="
+            height: 150%;
+            top: -25%;
+            will-change: transform;
+            transform: translateZ(0);
+          "
+        ></div>
+        <div class="container">
+          <h2>
+            [Empowering forward-thinking brands to reach their maximum
+            potential.]
+          </h2>
+          <div class="magnetic-wrap">
+            <a href="#contact" class="btn interactive-el magnetic"
+              >Start a Project</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ARCHIVES TEASER -->
+      <section class="archives">
+        <div class="container archives-grid">
+          <div class="archives-text animate-up">
+            <h2 class="section-heading">Archives & Experiments</h2>
+            <p class="bio">
+              A collection of concepts, interactions, and visual explorations
+              that push boundaries.
+            </p>
+            <a href="#" class="archives-link interactive-el"
+              >Explore <span>&rarr;</span></a
+            >
+          </div>
+          <div class="archives-video animate-up" style="transition-delay: 0.2s">
+            <video autoplay loop muted playsinline>
+              <source
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="testimonials">
+        <div class="container">
+          <div class="testimonials-header animate-up">
+            <div class="label mb-4">Words of Praise</div>
+            <h2 class="section-heading">Trusted By Founders</h2>
+          </div>
+          <div class="testi-grid">
+            <!-- Testimonial 1 -->
+            <div class="testi-card animate-up">
+              <p class="testi-quote">
+                "Adarsh transformed my vision into a stunning digital
+                reality. The attention to detail and smooth communication made
+                the whole process effortless."
+              </p>
+              <div class="testi-author">
+                <img
+                  src="https://picsum.photos/100/100?random=6"
+                  alt="Reviewer"
+                  class="author-img"
+                  loading="lazy"
+                />
+                <div class="author-info">
+                  <h4>Shakti Forwarders</h4>
+                  <p>CEO, Shakti Forwarders</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testi-card animate-up" style="transition-delay: 0.1s">
+              <p class="testi-quote">
+                "A rare combination of incredible design taste and flawless
+                technical execution. Delivered way ahead of schedule with zero
+                compromises."
+              </p>
+              <div class="testi-author">
+                <img
+                  src="https://picsum.photos/100/100?random=7"
+                  alt="Reviewer"
+                  class="author-img"
+                  loading="lazy"
+                />
+                <div class="author-info">
+                  <h4>Shree Sai Surgical</h4>
+                  <p>CEO, Shree Sai Surgical</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-top animate-up">
+          <h2>Let's create something Better, Together</h2>
+          <div class="magnetic-wrap">
+            <a
+              href="contact.html"
+              class="btn interactive-el magnetic"
+              style="font-size: 16px; padding: 18px 36px"
+              >Book a call</a
+            >
+          </div>
+        </div>
+        <div class="footer-bottom animate-up" style="transition-delay: 0.2s">
+          <div class="copyright">
+            &copy; <span id="year"></span> Adarsh Suresh Mandavkar . All rights reserved.
+          </div>
+          <div class="footer-links">
+            <a href="https://www.linkedin.com/in/adarsh-mandavkar-03b55331a/" class="interactive-el">LinkedIn</a>
+            <a href="https://github.com/Orbitdad" class="interactive-el">GitHub</a>
+            <a href="https://x.com/mr_mandavkarjr" class="interactive-el">Twitter</a>
+          </div>
+          <div class="location-contact">
+            [Mumbai, India] &nbsp;·&nbsp;
+            <a href="mailto:mandavkaradarsh2005@gmail.com" class="interactive-el"
+              >[mandavkaradarsh2005@gmail.com]</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      // CUSTOM CURSOR & MOUSE PARALLAX
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      const cursor = document.getElementById("cursor");
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let cursorX = mouseX,
+        cursorY = mouseY;
+      let smoothedMouseX = mouseX,
+        smoothedMouseY = mouseY;
+
+      // Elements for parallax
+      const mouseParallaxEls = document.querySelectorAll(".mouse-parallax");
+      const heroTiltEl = document.getElementById("hero-tilt");
+      const heroTiltImg = heroTiltEl ? heroTiltEl.querySelector("img") : null;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      // Smooth cursor follow & Parallax animation loop
+      function renderCursor() {
+        // Cursor
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+
+        // Mouse Parallax drift
+        smoothedMouseX += (mouseX - smoothedMouseX) * 0.1;
+        smoothedMouseY += (mouseY - smoothedMouseY) * 0.1;
+
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const driftX = smoothedMouseX - centerX;
+        const driftY = smoothedMouseY - centerY;
+
+        mouseParallaxEls.forEach((el) => {
+          const speed = parseFloat(el.getAttribute("data-mouse-speed")) || 0;
+          const x = driftX * speed;
+          const y = driftY * speed;
+          el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        });
+
+        // 3D Tilt
+        if (heroTiltImg) {
+          const rotateX = -(driftY / centerY) * 8;
+          const rotateY = (driftX / centerX) * 8;
+          heroTiltImg.style.transform = `translateZ(0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+
+        requestAnimationFrame(renderCursor);
+      }
+      renderCursor();
+
+      // Hover state for interactive elements
+      const interactiveElements = document.querySelectorAll(
+        ".interactive-el, a, button",
+      );
+      interactiveElements.forEach((el) => {
+        el.addEventListener("mouseenter", () =>
+          cursor.classList.add("hovered"),
+        );
+        el.addEventListener("mouseleave", () =>
+          cursor.classList.remove("hovered"),
+        );
+      });
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      // MAGNETIC BUTTONS
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      const magnetics = document.querySelectorAll(".magnetic");
+      magnetics.forEach((btn) => {
+        btn.addEventListener("mousemove", (e) => {
+          const rect = btn.getBoundingClientRect();
+          // Calculate distance from center
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+
+          // Drift 22% toward cursor
+          btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+        });
+
+        btn.addEventListener("mouseleave", () => {
+          btn.style.transform = `translate(0px, 0px)`;
+        });
+      });
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      // SCRAMBLE TEXT EFFECT
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      const scrambleEl = document.getElementById("scramble-text");
+      const states = ["Hold tight", "Hi there!"];
+      let currentStateIndex = 0;
+      const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+
+      function scramble(targetText, duration) {
+        let startTime = null;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const progress = timestamp - startTime;
+
+          let scrambled = targetText
+            .split("")
+            .map((char, index) => {
+              if (char === " ") return " ";
+              // Reveal character over time
+              const charRevealTime = (duration / targetText.length) * index;
+              if (progress > charRevealTime) {
+                return char;
+              }
+              return chars[Math.floor(Math.random() * chars.length)];
+            })
+            .join("");
+
+          scrambleEl.innerText = scrambled;
+
+          if (progress < duration) {
+            requestAnimationFrame(step);
+          } else {
+            scrambleEl.innerText = targetText;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Cycle every 2.8s
+      setInterval(() => {
+        currentStateIndex = (currentStateIndex + 1) % states.length;
+        scramble(states[currentStateIndex], 800);
+      }, 2800);
+
+      // Initial scramble
+      setTimeout(() => {
+        scramble(states[0], 800);
+      }, 500);
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      // SCROLL PARALLAX & STICKY NAV
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      const navbar = document.getElementById("navbar");
+      const scrollParallaxEls = document.querySelectorAll(".scroll-parallax");
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          const scrollY = window.scrollY;
+
+          // Scroll Parallax Elements
+          scrollParallaxEls.forEach((el) => {
+            const speed = parseFloat(el.getAttribute("data-speed")) || 0;
+            const yPos = scrollY * speed;
+            el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+          });
+
+          // Sticky Nav
+          if (scrollY > 50) {
+            navbar.classList.add("scrolled");
+          } else {
+            navbar.classList.remove("scrolled");
+          }
+        },
+        { passive: true },
+      );
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      // MOBILE MENU
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileLinks = document.querySelectorAll(".mobile-link");
+      let menuOpen = false;
+
+      menuBtn.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+          mobileMenu.classList.add("active");
+          menuBtn.innerText = "Close";
+        } else {
+          mobileMenu.classList.remove("active");
+          menuBtn.innerText = "Menu";
+        }
+      });
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+          menuOpen = false;
+          menuBtn.innerText = "Menu";
+        });
+      });
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      // SCROLL ANIMATIONS (Intersection Observer)
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      };
+
+      const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Fade up elements
+      document.querySelectorAll(".animate-up").forEach((el) => {
+        scrollObserver.observe(el);
+      });
+
+      // Hero image wipe
+      const heroImg = document.getElementById("hero-img");
+      if (heroImg) {
+        setTimeout(() => {
+          heroImg.classList.add("in-view");
+        }, 300);
+      }
+
+      // Service list stagger
+      const staggerItems = document.querySelectorAll(".stagger-item");
+      staggerItems.forEach((item, index) => {
+        item.classList.add("animate-up");
+        item.style.transitionDelay = `${0.12 * index}s`; // 120ms stagger
+        scrollObserver.observe(item);
+      });
+
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      // FOOTER YEAR
+      // ━━━━━━━━━━━━━━━━━━━━━━━━
+      document.getElementById("year").innerText = new Date().getFullYear();
+    </script>
+  </body>
+</html>
