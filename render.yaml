@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        sync: false        # You'll paste this in Render dashboard
+      - key: ADMIN_PASSWORD
+        sync: false        # You'll paste this in Render dashboard
+      - key: CLIENT_URL
+        sync: false        # Your Vercel frontend URL e.g. https://yoursite.vercel.app
+      - key: NODE_ENV
+        value: production
