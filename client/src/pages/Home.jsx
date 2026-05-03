@@ -153,11 +153,12 @@ export default function Home() {
       })
 
       // Work cards - alternating left/right reveal & Parallax images
+      const isMobile = window.innerWidth < 768;
       document.querySelectorAll('.work-card').forEach((card, i) => {
         // Card entrance animation
         gsap.from(card, {
-          x: i % 2 === 0 ? -60 : 60,
-          y: 40,
+          x: isMobile ? 0 : (i % 2 === 0 ? -60 : 60),
+          y: isMobile ? 60 : 40,
           opacity: 0,
           duration: 0.9,
           ease: 'power3.out',
@@ -295,9 +296,9 @@ export default function Home() {
           </div>
           <div className="work-grid">
             {projects.map(({ href, src, alt, title, tags, offset, progress }) => (
-              <a key={href} href={href} target="_blank" rel="noreferrer" className="work-card"
-                data-hover="true"
-                style={offset ? { marginTop: '60px' } : {}}>
+              <a key={href} href={href} target="_blank" rel="noreferrer" 
+                className={`work-card ${offset ? 'offset' : ''}`}
+                data-hover="true">
                 <div className="work-img-parallax">
                   <img src={src} alt={alt} className="work-img" loading="lazy" />
                 </div>
