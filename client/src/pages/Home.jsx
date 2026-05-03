@@ -183,6 +183,18 @@ export default function Home() {
         })
       })
 
+      // About section reveal
+      gsap.from('.about-left > *', {
+        y: 40, opacity: 0, duration: 0.8, stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.about', start: 'top 75%', toggleActions: 'play none none none' }
+      })
+      gsap.from('.stat-row', {
+        x: 40, opacity: 0, duration: 0.8, stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.about-right', start: 'top 75%', toggleActions: 'play none none none' }
+      })
+
       // Mid CTA - scale up reveal
       gsap.from('.mid-cta .container > *', {
         y: 60, opacity: 0, scale: 0.95, duration: 1, stagger: 0.15,
@@ -318,13 +330,48 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ABOUT */}
+      <section className="about" id="about-me">
+        <div className="container about-grid">
+          <div className="about-left">
+            <div className="label about-label"><span className="line"></span> ABOUT ME</div>
+            <h2 className="about-headline">Building with intention.</h2>
+            <div className="about-bio">
+              <p>I'm <span className="highlight">Adarsh Mandavkar</span>, a <span className="highlight">MERN Stack Developer</span> based in <span className="highlight">India</span>. I focus on clean code, thoughtful interfaces, and digital products that make a real impact for the people using them.</p>
+              <p>Always experimenting with new technologies to build scalable and efficient solutions.</p>
+            </div>
+            <div className="magnetic-wrap">
+              <Link to="/contact" className="btn magnetic about-btn">Let's talk <span className="arrow">↗</span></Link>
+            </div>
+          </div>
+          <div className="about-right">
+            <div className="stat-row">
+              <div className="stat-num">04<span className="accent">+</span></div>
+              <div className="stat-label">Projects shipped</div>
+            </div>
+            <div className="stat-row">
+              <div className="stat-num">02<span className="accent">+</span></div>
+              <div className="stat-label">Years building</div>
+            </div>
+            <div className="stat-row">
+              <div className="stat-num">∞</div>
+              <div className="stat-label">Problems solved</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* MID CTA */}
       <section className="mid-cta" ref={ctaRef}>
-        <div className="noise-bg" style={{ willChange: 'transform' }} />
+        <div className="cta-line"></div>
         <div className="container">
-          <h2>[Empowering forward-thinking brands to reach their maximum potential.]</h2>
-          <div className="magnetic-wrap">
-            <a href="#contact" className="btn magnetic">Start a Project</a>
+          <h2>
+            Great software starts with<br/>
+            a <span className="highlight-italic">clear vision</span> — let's build<br/>
+            yours.
+          </h2>
+          <div className="magnetic-wrap" style={{ marginTop: '24px' }}>
+            <Link to="/contact" className="btn magnetic cta-btn">Book a free call →</Link>
           </div>
         </div>
       </section>

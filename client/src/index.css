@@ -135,12 +135,32 @@ section{padding:120px 0}
 .work-progress-bar{height:100%;background:linear-gradient(90deg,rgba(120,80,255,.8),rgba(60,180,255,.8));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
 .work-card:hover .work-progress-bar{transform:scaleX(var(--progress,1))}
 
+/* ── ABOUT ────────────────────────────────── */
+.about{padding:120px 0;border-bottom:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-label{display:flex;align-items:center;gap:12px;color:#ccff00;margin-bottom:24px;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase}
+.about-label .line{width:16px;height:1px;background:#ccff00}
+.about-headline{font-size:64px;font-weight:500;line-height:1.1;letter-spacing:-0.03em;margin-bottom:40px}
+.about-bio{display:flex;flex-direction:column;gap:24px;color:var(--text-muted);font-size:18px;margin-bottom:48px;max-width:520px;line-height:1.6}
+.about-bio .highlight{color:var(--text);font-weight:500}
+.about-btn{gap:8px;padding:16px 32px;font-size:15px;background:rgba(255,255,255,0.02)}
+.about-btn .arrow{transition:transform 0.3s}
+.about-btn:hover .arrow{transform:translate(4px,-4px)}
+.about-right{display:flex;flex-direction:column}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:40px 0;border-top:1px solid var(--border)}
+.stat-row:last-child{border-bottom:1px solid var(--border)}
+.stat-num{font-size:56px;font-weight:500;line-height:1;letter-spacing:-0.02em}
+.stat-num .accent{color:#ccff00}
+.stat-label{color:var(--text-muted);font-size:14px;letter-spacing:0.02em}
+
 /* ── MID CTA ──────────────────────────────── */
-.mid-cta{position:relative;text-align:center;padding:160px 0;background:#0a0a0f;overflow:hidden}
-.noise-bg{position:absolute;top:0;left:0;width:100%;height:100%;background-image:url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');pointer-events:none;z-index:0}
+.mid-cta{position:relative;text-align:center;padding:160px 0;background:var(--bg);overflow:hidden;border-bottom:1px solid var(--border)}
+.cta-line{position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:100px;background:linear-gradient(to bottom,transparent,#ccff00)}
 .mid-cta .container{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:40px}
-.mid-cta h2{max-width:800px;margin:0 auto;background:linear-gradient(135deg,#f0f0ee 0%,rgba(120,80,255,.7) 50%,rgba(60,180,255,.7) 100%);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 6s ease infinite}
-@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.mid-cta h2{max-width:900px;margin:0 auto;font-size:64px;font-weight:500;line-height:1.15;letter-spacing:-0.03em}
+.mid-cta h2 .highlight-italic{font-style:italic;color:#ccff00;font-weight:400}
+.cta-btn{background:#ccff00;color:#000;font-weight:600;padding:18px 40px;border:none;border-radius:100px;font-size:16px;display:inline-flex;align-items:center;gap:8px;transition:transform 0.3s cubic-bezier(0.22,1,0.36,1);cursor:pointer;text-decoration:none}
+.cta-btn:hover{transform:scale(1.05);color:#000}
 
 /* ── ARCHIVES ─────────────────────────────── */
 .archives{border-top:1px solid var(--border)}
@@ -236,6 +256,11 @@ footer::before{content:'';position:absolute;bottom:0;left:50%;transform:translat
   .archives-grid{grid-template-columns:1fr}
   .report-card-inner{grid-template-columns:1fr;gap:24px}
   .report-day{font-size:40px}
+  .about-grid{grid-template-columns:1fr;gap:60px}
+  .about-headline{font-size:48px;margin-bottom:32px}
+  .stat-row{padding:32px 0}
+  .stat-num{font-size:48px}
+  .mid-cta h2{font-size:48px}
 }
 @media(max-width:768px){
   .nav-links{display:none}
@@ -252,6 +277,10 @@ footer::before{content:'';position:absolute;bottom:0;left:50%;transform:translat
   h2,.section-heading,.footer-top h2{font-size:28px}
   .service-line{font-size:20px}
   .testi-card{padding:24px}
+  .about-headline{font-size:40px}
+  .stat-row{padding:24px 0}
+  .stat-num{font-size:40px}
+  .mid-cta h2{font-size:36px}
 }
 
 /* ── TOUCH & CURSOR FIXES ─────────────────── */
