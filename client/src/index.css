@@ -20,7 +20,7 @@ a{color:var(--text);text-decoration:none}
 ul{list-style:none}
 img,video{max-width:100%;display:block}
 
-h1,.hero-headline{font-size:72px;font-weight:500;line-height:1.05;letter-spacing:-0.03em}
+h1,.hero-headline{font-size:72px;font-weight:500;line-height:1.05;letter-spacing:-0.03em;word-wrap:break-word;overflow-wrap:break-word;max-width:100%}
 h2,.section-heading{font-size:42px;font-weight:500;line-height:1.1;letter-spacing:-0.02em}
 .label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted)}
 .service-line{font-size:28px;font-weight:400}

@@ -240,8 +240,9 @@ export default function Home() {
   ]
 
   return (
-    <main ref={pageRef}>
-      {/* HERO */}
+    <div style={{ overflowX: 'hidden', width: '100%', maxWidth: '100vw' }}>
+      <main ref={pageRef}>
+        {/* HERO */}
       <section className="hero" ref={heroRef} id="about" style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="ambient-orb ambient-orb--1" />
         <div className="ambient-orb ambient-orb--2" />
@@ -365,8 +366,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+          </div>
       </section>
-    </main>
+      </main>
+    </div>
   )
 }
