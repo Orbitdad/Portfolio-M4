@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,13 +27,7 @@ app.use(express.json());
 // ─── API Routes ───────────────────────────────────────────────────────────────
 app.use('/api/blogs', require('./routes/blogs'));
 
-// ─── Serve React build in production ─────────────────────────────────────────
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-  });
-}
+// Frontend is served by Vercel — Render only handles /api routes
 
 // ─── Connect to MongoDB & start server ───────────────────────────────────────
 mongoose
