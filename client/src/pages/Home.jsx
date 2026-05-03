@@ -107,7 +107,7 @@ export default function Home() {
     { href: 'https://orbitdad.github.io/MEDICART/#/doctor/login', src: projMedicart, alt: 'Medicart', title: 'Medicart - Shree Sai Surgical', tags: ['Industry', 'Service'] },
     { href: 'https://github.com/Orbitdad/C4', src: projC4, alt: 'C4', title: 'C4 - Personal Assistant', tags: ['Personal Assistant', 'AI'], offset: true },
     { href: 'https://shakti-forwarders-main.vercel.app/index.html', src: projShakti, alt: 'Shakti Forwarders', title: 'shakti-forwarders', tags: ['Industry', 'Service'] },
-    { href: 'https://work-in-progress-eight.vercel.app/', src: projWip, alt: 'WIP', title: 'Project in Progress', tags: ['secret', 'secret'], offset: true },
+    { href: 'https://work-in-progress-baby.vercel.app/', src: projWip, alt: 'WIP', title: 'Project in Progress', tags: ['secret', 'secret'], offset: true },
   ]
 
   return (
