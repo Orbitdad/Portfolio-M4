@@ -1,5 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import API_BASE from '../api'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function parseDate(dateStr) {
   // Try to extract day/month/year for big display
@@ -53,6 +57,30 @@ export default function Journal() {
     return () => obs.disconnect()
   }, [loading, blogs])
 
+  // Parallax for journal images
+  useLayoutEffect(() => {
+    if (loading || blogs.length === 0) return
+    const ctx = gsap.context(() => {
+      document.querySelectorAll('.report-image').forEach(container => {
+        const parallax = container.querySelector('.report-image-parallax')
+        if (parallax) {
+          gsap.to(parallax, {
+            yPercent: -15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: container,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true
+            }
+          })
+        }
+      })
+      setTimeout(() => ScrollTrigger.refresh(), 500)
+    })
+    return () => ctx.revert()
+  }, [loading, blogs])
+
   return (
     <main>
       {/* HERO */}
@@ -102,13 +130,14 @@ export default function Journal() {
                         <div className="report-month-year">{rest}</div>
                       </div>
 
-                      {/* Body */}
                       <div className="report-body">
                         <div className="report-label">Entry #{blogs.length - i}</div>
                         {blog.text && <p className="report-text">{blog.text}</p>}
                         {blog.imageUrl && (
                           <div className="report-image">
-                            <img src={blog.imageUrl} alt="Blog" loading="lazy" />
+                            <div className="report-image-parallax">
+                              <img src={blog.imageUrl} alt="Blog" loading="lazy" />
+                            </div>
                           </div>
                         )}
                       </div>

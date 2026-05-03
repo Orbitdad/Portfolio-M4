@@ -4,13 +4,13 @@ export default function Footer() {
   return (
     <footer id="contact">
       <div className="container">
-        <div className="footer-top animate-up">
+        <div className="footer-top">
           <h2>Let's create something Better, Together</h2>
           <div className="magnetic-wrap">
             <Link to="/contact" className="btn" style={{ fontSize: '16px', padding: '18px 36px' }}>Book a call</Link>
           </div>
         </div>
-        <div className="footer-bottom animate-up" style={{ transitionDelay: '0.2s' }}>
+        <div className="footer-bottom">
           <div className="copyright">
             &copy; {new Date().getFullYear()} Adarsh Suresh Mandavkar. All rights reserved.
           </div>

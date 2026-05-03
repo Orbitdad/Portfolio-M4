@@ -1,21 +1,38 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { NavLink, Link } from 'react-router-dom'
+import { gsap } from 'gsap'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const navRef = useRef(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    
+    // Entrance animation
+    const ctx = gsap.context(() => {
+      gsap.from(navRef.current, {
+        y: -100,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.1
+      })
+    })
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      ctx.revert()
+    }
   }, [])
 
   const closeMenu = () => setMenuOpen(false)
 
   return (
     <>
-      <nav className={`sticky-nav${scrolled ? ' scrolled' : ''}`}>
+      <nav ref={navRef} className={`sticky-nav${scrolled ? ' scrolled' : ''}`}>
         <div className="container nav-container">
           <Link to="/" className="logo">Adarsh Mandavkar</Link>
           <div className="nav-links">
