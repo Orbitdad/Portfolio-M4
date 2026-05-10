@@ -7,6 +7,7 @@ import projMedicart from '../assets/proj-medicart.png'
 import projC4 from '../assets/proj-C4.png'
 import projShakti from '../assets/proj-shaktiforwarders.png'
 import projWip from '../assets/WIP.png'
+import Particles from '../components/Particles'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -256,6 +257,19 @@ export default function Home() {
       <main ref={pageRef}>
         {/* HERO */}
       <section className="hero" ref={heroRef} id="about" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+          <Particles
+            particleColors={["#ffffff"]}
+            particleCount={200}
+            particleSpread={10}
+            speed={0.1}
+            particleBaseSize={100}
+            moveParticlesOnHover
+            alphaParticles={false}
+            disableRotation={false}
+            pixelRatio={1}
+          />
+        </div>
         <div className="ambient-orb ambient-orb--1" />
         <div className="ambient-orb ambient-orb--2" />
         <div className="container hero-grid" style={{ position: 'relative', zIndex: 2 }}>
